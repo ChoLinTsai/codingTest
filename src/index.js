@@ -4,34 +4,17 @@ const splitBoard = board.map(i =>
   i.map(j => j.split("")).map(k => k.map(x => x))
 );
 
-const getFirstLayer = splitBoard[0].map(i => {
-  i.map((j, index) => {
-    let obj = {
-      letter: j,
-      coordinate: [0, index]
-    };
-    coordinate.push(obj);
-  });
-});
-
-const getSecondLayer = splitBoard[1].map(i => {
-  i.map((j, index) => {
-    let obj = {
-      letter: j,
-      coordinate: [1, index]
-    };
-    coordinate.push(obj);
-  });
-});
-
-const getThirdLayer = splitBoard[2].map(i => {
-  i.map((j, index) => {
-    let obj = {
-      letter: j,
-      coordinate: [2, index]
-    };
-    coordinate.push(obj);
-  });
+// Create coordinate array
+splitBoard.map((i, index1) => {
+  i.map(j =>
+    j.map((k, index2) => {
+      let obj = {
+        letter: k,
+        coordinate: [index1, index2]
+      };
+      coordinate.push(obj);
+    })
+  );
 });
 
 const CheckBtn = document.querySelector("#check");
@@ -68,28 +51,11 @@ CheckBtn.addEventListener("click", () => {
           });
         });
       }
-
+      // console.log(123, newDirs);
+      // console.log(4444, usedDirs);
       if (index > 0) {
-        let hasNewMatch = newMatchLetters.some(
-          newLetters => newLetters.letter === setAnchor.letter
-        );
-        console.log(123, hasNewMatch);
+        getPossibleDirs(setAnchor);
 
-        if (hasNewMatch) {
-          newMatchLetters = [];
-          getPossibleDirs(setAnchor);
-          newDirs.map(newDirs => {
-            coordinate.map(k => {
-              if (newDirs.join("") === k.coordinate.join("")) {
-                newMatchLetters.push(k);
-              }
-            });
-          });
-        }
-
-        console.log(55555, newDirs);
-        console.log(66666, usedDirs);
-        let newDir1 = [];
         newDirs.forEach((newDirsitem, index1) => {
           return usedDirs.forEach(usedDirsItem => {
             if (newDirsitem.join("") === usedDirsItem.join("")) {
@@ -99,20 +65,27 @@ CheckBtn.addEventListener("click", () => {
         });
         console.log(456, `This is newDir after rm usedDirs : `);
         console.log(456, newDirs);
-        // console.log(789, `This is current coord : `);
-        // console.log(789, setAnchor.coordinate);
+        console.log(789, setAnchor);
+
+        console.log(121212, newMatchLetters);
+
+        let hasNewMatch = newMatchLetters.some(
+          newLetters => newLetters.letter === setAnchor.letter
+        );
+        console.log(101010, hasNewMatch);
+
+        if (hasNewMatch) {
+          newMatchLetters = [];
+
+          newDirs.map(newDirs => {
+            coordinate.map(k => {
+              if (newDirs.join("") === k.coordinate.join("")) {
+                newMatchLetters.push(k);
+              }
+            });
+          });
+        }
       }
-
-      // let setAnchor = i;
-      // getPossibleDirs(setAnchor);
-
-      // newDirs.map(i => {
-      //   coordinate.map(k => {
-      //     if (Number(i.join("")) === Number(k.coordinate.join(""))) {
-      //       newMatchLetters.push(k);
-      //     }
-      //   });
-      // });
     });
   }
 
@@ -173,16 +146,16 @@ CheckBtn.addEventListener("click", () => {
   // });
 
   // console.log(123, newInput);
-  console.log(888, `This is newDirs : `);
-  console.log(888, newDirs);
-  console.log(777, `This is usedDirs`);
-  console.log(777, usedDirs);
-  console.log(666, `This is newMatchLetters : `);
-  console.log(666, newMatchLetters);
+  // console.log(888, `This is newDirs : `);
+  // console.log(888, newDirs);
+  // console.log(777, `This is usedDirs`);
+  // console.log(777, usedDirs);
+  // console.log(666, `This is newMatchLetters : `);
+  // console.log(666, newMatchLetters);
   // console.log(999, `This is anchor coords : ${setAnchor.coordinate}`);
-  console.log(1111, `This is Match list`);
-  console.log(1111, getMatchList);
+  // console.log(1111, `This is Match list`);
+  // console.log(1111, getMatchList);
   // console.log(333, `User input : `);
   // console.log(333, getInput);
-  // console.log(coordinate);
+  // console.log(99999999, coordinate);
 });
