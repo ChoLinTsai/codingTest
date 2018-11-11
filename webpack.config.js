@@ -87,9 +87,6 @@ module.exports = {
       filename: "./css/main.css",
       disable: !isProd,
       allChunks: true
-    }),
-    new webpack.DefinePlugin({
-      myAPI: JSON.stringify(myEnv.parsed.SECRET_KEY)
     })
   ]
 };
