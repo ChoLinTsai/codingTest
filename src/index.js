@@ -117,34 +117,6 @@ CheckBtn.addEventListener("click", () => {
     });
   }
 
-  // if (setAnchor === undefined) {
-  //   let getOuput = document.querySelector("#output");
-  //   return (getOuput.innerHTML = "false");
-  // }
-
-  // if (setAnchor) {
-  //   usedDirs.push(setAnchor.coordinate);
-  //   document.querySelector("#output").innerHTML = "";
-  //   getPossibleDirs(setAnchor.coordinate);
-  // }
-
-  // let newInput = getInput.slice(1, getInput.length);
-
-  // newDirs.map(i => {
-  //   console.log(`This is newDirs : ${i}`);
-
-  //   coordinate.map(k => {
-  //     if (Number(i.join("")) === Number(k.coordinate.join(""))) {
-  //       newMatchLetters.push(k);
-  //     }
-
-  //     console.log(`This is coordinate : ${k.coordinate}`);
-  //     console.log(111111, i.join(""));
-  //     console.log(222222, k.coordinate.join(""));
-  //     console.log(333333, k.letter);
-  //   });
-  // });
-
   // console.log(123, newInput);
   // console.log(888, `This is newDirs : `);
   // console.log(888, newDirs);
