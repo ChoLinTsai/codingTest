@@ -21,6 +21,8 @@ const CheckBtn = document.querySelector("#check");
 
 CheckBtn.addEventListener("click", () => {
   let userInput = document.querySelector("#input").value;
+  if (userInput.length > 12)
+    return alert("Maximum Words reached, please enter 1-12 words");
   if (!isNaN(Number(`${userInput}`))) return alert("Please Enter Words");
   let getInput = userInput.toUpperCase().split("");
   let usedDirs = [];
@@ -40,6 +42,9 @@ CheckBtn.addEventListener("click", () => {
 
   if (checkIfUndefined) {
     getMatchList.map((setAnchor, index) => {
+      let needToStop = false;
+      if (needToStop) return;
+      console.log(1212, setAnchor);
       if (index === 0) {
         getPossibleDirs(setAnchor);
 
@@ -51,40 +56,67 @@ CheckBtn.addEventListener("click", () => {
           });
         });
       }
-      // console.log(123, newDirs);
-      // console.log(4444, usedDirs);
       if (index > 0) {
-        getPossibleDirs(setAnchor);
-
-        newDirs.forEach((newDirsitem, index1) => {
-          return usedDirs.forEach(usedDirsItem => {
-            if (newDirsitem.join("") === usedDirsItem.join("")) {
-              return newDirs.splice(index1, 1);
-            }
-          });
+        let checkIsMatch = newMatchLetters.some(newLetter => {
+          return newLetter.letter === setAnchor.letter;
         });
-        console.log(456, `This is newDir after rm usedDirs : `);
-        console.log(456, newDirs);
-        console.log(789, setAnchor);
+        console.log(33333, checkIsMatch);
 
-        console.log(121212, newMatchLetters);
+        if (checkIsMatch) {
+          console.log(11111, setAnchor);
+          console.log(22222, newMatchLetters);
+          let getAnchor = newMatchLetters.filter(newLetter => {
+            return newLetter.letter === setAnchor.letter;
+          })[0];
+          console.log(3333, getAnchor);
+          getPossibleDirs(getAnchor);
 
-        let hasNewMatch = newMatchLetters.some(
-          newLetters => newLetters.letter === setAnchor.letter
-        );
-        console.log(101010, hasNewMatch);
-
-        if (hasNewMatch) {
-          newMatchLetters = [];
-
-          newDirs.map(newDirs => {
-            coordinate.map(k => {
-              if (newDirs.join("") === k.coordinate.join("")) {
-                newMatchLetters.push(k);
+          newDirs.map((newDirsitem, index1) => {
+            return usedDirs.map(usedDirsItem => {
+              if (newDirsitem.join("") === usedDirsItem.join("")) {
+                return newDirs.splice(index1, 1);
               }
             });
           });
+
+          newMatchLetters = newDirs
+            .map(newDirsitem => {
+              return coordinate.filter(coordsItem => {
+                return newDirsitem.join("") === coordsItem.coordinate.join("");
+              });
+            })
+            .flat();
+          document.querySelector("#output").innerHTML = "True";
+          console.log(444, newDirs);
+          console.log(555, newMatchLetters);
+          console.log(666, usedDirs);
+        } else {
+          document.querySelector("#output").innerHTML = "false";
+          console.log(5566, "found undfined");
+          return (needToStop = true);
         }
+
+        // console.log(456, `This is newDir after rm usedDirs : `);
+        // console.log(456, newDirs);
+        // console.log(789, setAnchor);
+        // console.log(121212, newMatchLetters);
+
+        // let hasNewMatch = newMatchLetters.some(
+        //   newLetters => newLetters.letter === setAnchor.letter
+        // );
+        // console.log(101010, hasNewMatch);
+
+        // if (hasNewMatch) {
+        //   newMatchLetters = [];
+
+        //   newDirs.map(newDirs => {
+        //     coordinate.map(k => {
+        //       if (newDirs.join("") === k.coordinate.join("")) {
+        //         newMatchLetters.push(k);
+        //       }
+        //     });
+        //   });
+        // }
       }
     });
   }
@@ -92,6 +124,7 @@ CheckBtn.addEventListener("click", () => {
   function getPossibleDirs(setAnchor) {
     newDirs = [];
     let coords = setAnchor.coordinate;
+    console.log(99999999999, coords);
     usedDirs.push(coords);
     return coords.map((i, index) => {
       switch (index) {
