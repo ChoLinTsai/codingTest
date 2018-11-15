@@ -18,7 +18,6 @@ splitBoard.map((i, index1) => {
 });
 
 module.exports = function inputValidattion(getUserInput) {
-  let result;
   let userInput = getUserInput;
 
   // check if userinput is longer than 12 chars, then return false
@@ -37,6 +36,7 @@ module.exports = function inputValidattion(getUserInput) {
   let usedDirs = [];
   let newDirs = [];
   let newMatchLetters = [];
+  let resultList = [];
 
   // get userInput to match our board letters
   let getMatchList = getInput.map(i => {
@@ -65,7 +65,7 @@ module.exports = function inputValidattion(getUserInput) {
             }
           });
         });
-        return (result = true);
+        return resultList.push(true);
       }
 
       // set anchor letter starts with the second letter
@@ -103,16 +103,17 @@ module.exports = function inputValidattion(getUserInput) {
             });
           });
           getNewLetters.map(i => i.map(j => newMatchLetters.push(j)));
-          return (result = true);
+          return resultList.push(true);
         } else {
           needToStop = true;
-          return (result = false);
+          return resultList.push(false);
         }
       }
     });
-    return result;
+
+    // check is all input is fit the rules and return boolean as a result
+    return resultList.every(i => i === true);
   }
-  return result;
 
   // function to get possible directions
   function getPossibleDirs(setAnchor) {
