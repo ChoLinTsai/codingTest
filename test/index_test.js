@@ -21,3 +21,10 @@ describe("Test input ABCF", () => {
     done();
   });
 });
+
+describe("Test input ASDF", () => {
+  it("input ASDF should return : false", done => {
+    inputValidation("ASDF").should.be.exactly(false);
+    done();
+  });
+});
